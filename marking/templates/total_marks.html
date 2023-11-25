@@ -1,0 +1,49 @@
+{% extends 'base2.html' %}
+
+{% block content %}
+<br>
+<div class='container'>
+<h3>Total Marks</h3></div>
+
+<div class='container'><em>School number:</em> <strong>{{ current_paper.school }}</strong></div>
+<br>
+{% if current_paper.paper_void %}
+	<div class='container'>
+	<h3>VOID PAPER</h3></div>
+	<br>
+	<div class='container'><em>Q1:</em> <strong>VOID</strong></div>
+	<br>
+	<div class='container'><em>Q2:</em> <strong>VOID</strong></div>
+	<br>
+	<div class='container'><em>Q3:</em> <strong>VOID</strong></div>
+	<br>
+
+
+
+{% else %}
+
+	<div class='container'><em>Q1:</em> <strong>{{current_paper.q1_letter}}</strong>. &emsp; {{current_paper.q1a}}, {{current_paper.q1b}}, {{current_paper.q1c}}, {{current_paper.q1d}}</div>
+	<br>
+	<div class='container'><em>Q2:</em> <strong>{{current_paper.q2_letter}}</strong>. &emsp; {{current_paper.q2a}}, {{current_paper.q2b}}, {{current_paper.q2c}}, {{current_paper.q2d}}</div>
+	<br>
+	<div class='container'><em>Q3:</em> <strong>{{current_paper.q3_letter}}</strong>. &emsp; {{current_paper.q3a}}, {{current_paper.q3b}}, {{current_paper.q3c}}, {{current_paper.q3d}}</div>
+	<br>
+	<div class='container'><em>Total Score:</em> <strong>{{current_paper.total_score}}</strong></div>
+
+{% endif %}
+
+
+
+
+<br>
+<div class='container'>
+<a class="btn btn-success" href="{% url 'enter_school_id' %}" role="button">Next Paper</a>
+</div>
+<br>
+<div class='container'>
+<a class="btn btn-primary" href="{% url 'mark_menu' %}" role="button">Marking Menu</a>
+</div>
+
+
+
+{% endblock %}

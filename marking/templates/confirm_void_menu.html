@@ -1,0 +1,44 @@
+{% extends 'base2.html' %}
+
+
+{% block content %}
+
+{% if editing_paper.paper_void %}
+  <div class=container>
+  <h5>Confirm this paper is NO LONGER a blank/void?</h5>
+
+  </div>
+  <br>
+
+  <div class = container>
+  <form method="POST">
+    {% csrf_token %}
+  	<div>
+      <button class="btn btn-danger" type="submit">Remove VOID Status</button>
+    </div>
+  </form>
+
+  <br>
+
+
+{% else %}
+  <div class=container>
+  <h5>Confirm this paper is NOW a blank/void?</h5>
+
+  </div>
+  <br>
+
+  <div class = container>
+  <form method="POST">
+    {% csrf_token %}
+    <div>
+      <button class="btn btn-danger" type="submit">Confirm VOID Paper</button>
+    </div>
+  </form>
+
+  <br>
+{% endif %}
+
+<a class="btn btn-success" href="{% url 'edit_menu' paper_id=paper_id %}" role="button">Back</a>
+
+{% endblock %}

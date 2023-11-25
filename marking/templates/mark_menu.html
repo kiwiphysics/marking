@@ -1,0 +1,39 @@
+{% extends 'base2.html' %}
+
+{% block content %}
+
+
+<center>
+<h3>Welcome to the NCEA Marking Assistant</h3><br>
+<div class='container'>
+<a class="btn btn-success" href="{% url 'enter_school_id' %}" role="button">Start marking</a>
+</div>
+<br>
+
+<div class='container'>
+<a class="btn btn-warning" href="{% url 'review_marks' sort_type='d' the_marker=the_marker.id %}" role="button">Review my marks</a>
+</div>
+
+{% if the_marker.chief_marker %}
+<br>
+<div class='container'>
+<a class="btn btn-primary" href="{% url 'super_review_menu' %}" role="button">Review ALL marks</a>
+</div>
+{% endif %}
+
+
+
+<br>
+<div class='container'>
+	   {% if user.is_authenticated %}
+      <form>
+        <a class="btn btn-outline-success" href="{% url 'logout_user' %}" role="button">Logout</a>
+      </form>
+        {% else %}
+      <form>
+        <a class="btn btn-outline-success" href="{% url 'login_user' %}" role="button">Login</a>
+      </form>
+      {% endif %}
+ </div>
+ </center>
+{% endblock %}

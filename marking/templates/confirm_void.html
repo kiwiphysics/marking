@@ -1,0 +1,20 @@
+{% extends 'base2.html' %}
+
+{% block content %}
+<div class=container>
+<h5>Confirm this paper is blank/void?</h5>
+</div>
+<br>
+
+<div class = container>
+<form method="POST">
+  {% csrf_token %}
+	<div>
+    <button class="btn btn-danger" type="submit">Confirm VOID/BLANK Paper</button>
+  </div>
+</form>
+
+<br>
+<div class=container><a class="btn btn-success" href="{% url 'mark_current_question' 1 %}" role="button">Back to Q1</a></div>
+
+{% endblock %}

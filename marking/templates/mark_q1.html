@@ -1,0 +1,34 @@
+{% extends 'base2.html' %}
+
+{% block content %}
+<br>
+
+<style type="text/css">
+  [id^='id_q']{
+    display: flex;
+      margin-right: 25px;
+  }
+  
+</style>
+<h5 class=container>{{page_heading}}</h5>
+
+<div class = container>
+<form method="POST">
+  {% csrf_token %}
+    
+  {{ form.as_p }}
+
+  <div>
+
+    <button class="btn btn-secondary" type="submit">{{button_label}}</button>
+  
+  </div>
+
+</form>
+</div>
+<br>
+{% if current_marking %}
+<div class=container><a class="btn btn-danger" href="{% url 'confirm_void' %}" role="button">or VOID paper?</a></div>
+{% endif %}
+
+{% endblock %}

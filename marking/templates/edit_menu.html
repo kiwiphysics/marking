@@ -1,0 +1,78 @@
+{% extends 'base2.html' %}
+
+{% block content %}
+
+<br>
+		<!-- Successfully added item Message  -->
+		{% if messages %}
+			{% for message in messages %}
+				<div class="alert alert-primary alert-dismissible fade show" role="alert">
+				{{message}}
+				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				</div>
+			{% endfor %}
+		{% endif %}
+
+<center>
+<h5>Edit Menu</h5><br>
+
+<div class='container'>
+School ID: <strong>{{editing_paper.school}}</strong>. Total Score: <strong>{{editing_paper.total_score}}</strong>. Marked by: <strong>{{editing_paper.user.first_name}}</strong>.
+</div>
+<br>
+
+{% if editing_paper.paper_void %}
+	<div class='container'>
+	This paper is currently marked as VOID.
+	<br><br>
+
+		<a class="btn btn-success" href="{% url 'confirm_void_menu' paper_id=paper_id %}" role="button">REMOVE Void grade</a>
+	</div>
+
+{% else %}
+	<div class='container'>
+		<strong>Q1: </strong>{{editing_paper.q1_letter}}(<em>{{editing_paper.q1a}}, {{editing_paper.q1b}}, {{editing_paper.q1c}}, {{editing_paper.q1d}}</em>)
+		<a class="btn btn-success" href="{% url 'edit_paper' paper_id=paper_id question_number='1' %}" role="button">Edit Q1</a>
+	</div>
+	<br>
+	<div class='container'>
+		<strong>Q2: </strong>{{editing_paper.q2_letter}}(<em>{{editing_paper.q2a}}, {{editing_paper.q2b}}, {{editing_paper.q2c}}, {{editing_paper.q2d}}</em>)
+		<a class="btn btn-success" href="{% url 'edit_paper' paper_id=paper_id question_number='2' %}" role="button">Edit Q2</a>
+	</div>
+	<br>
+	<div class='container'>
+		<strong>Q3: </strong>{{editing_paper.q3_letter}}(<em>{{editing_paper.q3a}}, {{editing_paper.q3b}}, {{editing_paper.q3c}}, {{editing_paper.q3d}}</em>)
+		<a class="btn btn-success" href="{% url 'edit_paper' paper_id=paper_id question_number='3' %}" role="button">Edit Q3</a>
+	</div>
+
+	<br>
+	<div class='container'>
+	OR
+	<br><br>
+	<a class="btn btn-success" href="{% url 'confirm_void_menu' paper_id=paper_id %}" role="button">Change to VOID</a>
+	</div>
+
+{% endif %}
+<br>
+<div class='container'>
+OR
+<br><br>
+<a class="btn btn-danger" href="{% url 'confirm_delete' paper_id=paper_id%}" role="button">DELETE Paper from database</a>
+</div>
+
+
+
+
+
+<br>
+<div class='container'>
+<p>Marked at: {{editing_paper.marking_created}}.</p><p>Edited at: {{editing_paper.marking_updated}}</p>
+</div>
+
+<div class='container'>
+<a class="btn btn-primary" href="{% url 'review_marks' sort_type='s' the_marker=the_marker.id %}" role="button">RETURN to ALL RESULTS</a>
+<br>
+</div>
+
+<br>
+{% endblock %}

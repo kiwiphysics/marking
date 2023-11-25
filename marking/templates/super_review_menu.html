@@ -1,0 +1,39 @@
+{% extends 'base2.html' %}
+
+{% block content %}
+
+
+<center>
+	<br>
+<h5>Chief Marker Edit Menu</h5><br>
+
+<br>
+<div class='container'>
+<a class="btn btn-primary" href="{% url 'statistics' %}" role="button">Statistics for ALL Papers</a>
+</div>
+<br>
+<p>OR</p>
+
+View/Edit Papers from a particular marker
+<br><br>
+<!-- Example single danger button -->
+<div class="dropdown">
+  <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-bs-toggle="dropdown">
+    Available Markers
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+  	{% for marker in all_markers %}
+		<a class="dropdown-item" href="{% url 'review_marks' sort_type='d' the_marker=marker.id %}">{{marker}}</a>
+	{% endfor %}
+  </div>
+
+</div>
+
+
+
+
+</center>
+
+
+
+{% endblock %}

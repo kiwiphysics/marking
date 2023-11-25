@@ -1,0 +1,29 @@
+{% extends 'base2.html' %}
+
+{% block content %}
+
+
+
+  
+  <div class=container>
+  <h5>Delete this paper from the database?</h5>
+  <br>
+  <h5>Note: This CANNOT be undone!</h5>
+
+  </div>
+  <br>
+
+  <div class = container>
+  <form method="POST">
+    {% csrf_token %}
+    <div>
+      <button class="btn btn-danger" type="submit">Confirm Delete</button>
+    </div>
+  </form>
+
+  <br>
+
+
+<a class="btn btn-success" href="{% url 'edit_menu' paper_id=paper_id %}" role="button">Back</a>
+
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'base2.html' %}
+
+
+{% block content %}
+
+
+<br>
+<center><h5>Enter School Code</h5></center>
+<div class='container'>
+
+<form method="POST">
+	{% csrf_token %}
+  <div class="form-group container">
+    <label for="school_number1">Enter School Code eg 223</label>
+    <input type="number" class="form-control" id="school_number1" name="school_number">
+  </div>
+<br>
+<button type="submit" class="btn btn-success">Submit</button>
+
+</form>
+
+{% if the_marker.chief_marker %}
+<br>
+OR
+<br>
+<div class='container'>
+<a class="btn btn-primary" href="{% url 'check_marking' %}" role="button">Click for check marking</a>
+</div>
+{% endif %}
+
+
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,171 @@
+{% extends 'base2.html' %}
+
+{% block content %}
+
+<br>
+		<!-- Successfully added item Message  -->
+		{% if messages %}
+			{% for message in messages %}
+				<div class="alert alert-primary alert-dismissible fade show" role="alert">
+				{{message}}
+				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				</div>
+			{% endfor %}
+		{% endif %}
+
+<center><h3>Marking Statistics</h3></center>
+
+<div class='container'>
+<center><h5>Distribution of total N's, A's, M's, E's</h5>
+
+<table class="table">
+  <thead>
+    <tr>
+ 
+      <th scope="col">Not Achieved %</th>
+      <th scope="col">Acheived %</th>
+      <th scope="col">Merit %</th>
+      <th scope="col">Excellence %</th>
+    </tr>
+      </thead>
+
+    <tbody>
+ 		<tr>
+		      <td>{{output_totals.0}}</td>
+		      <td>{{output_totals.1}}</td>
+		      <td>{{output_totals.2}}</td>
+		      <td>{{output_totals.3}}</td>
+		    </tr>
+  </tbody>
+</table>
+<em>(Based on cutscores of Acheived = {{cutscore.achieved}}, Merit = {{cutscore.merit}}, Excellence = {{cutscore.excellence}})</em>
+<br>
+<a class="btn btn-secondary" href="{% url 'change_cutscores' %}" role="button">Change cutscores</a></center>
+<br>
+</div>
+<br>
+
+<div class='container'>
+<center><h5>Distribution of totals for each question</h5></center>
+<br>
+<table class="table">
+  <thead>
+    <tr>
+    	<th scope="col">Question</th>
+      <th scope="col">N0 %</th>
+      <th scope="col">N1 %</th>
+      <th scope="col">N2 %</th>
+      <th scope="col">A3 %</th>
+      <th scope="col">A4 %</th>
+      <th scope="col">M5 %</th>
+      <th scope="col">M6 %</th>
+      <th scope="col">E7 %</th>
+      <th scope="col">E8 %</th>
+      <th scope="col">Average (0-8)</th>
+    </tr>
+      </thead>
+
+    <tbody>
+  	{% for x, y in zipped_letter %}
+		<tr>
+		      <th scope="row">{{x}}</th>
+		      <td>{{y.0}}</td>
+		      <td>{{y.1}}</td>
+		      <td>{{y.2}}</td>
+		      <td>{{y.3}}</td>
+		      <td>{{y.4}}</td>
+		      <td>{{y.5}}</td>
+		      <td>{{y.6}}</td>
+		      <td>{{y.7}}</td>
+		      <td>{{y.8}}</td>
+		      <td>{{y.9}}</td>
+
+		    </tr>
+{% endfor %}
+  </tbody>
+</table>
+</div>
+
+	
+<br>
+<div class='container'>
+<center><h5>Distribution of marks for each question</h5></center>
+<table class="table">
+  <thead>
+    <tr>
+    	<th scope="col">Question</th>
+      <th scope="col">N %</th>
+      <th scope="col">A %</th>
+      <th scope="col">M %</th>
+      <th scope="col">E %</th>
+      <th scope="col">Average Score</th>
+    </tr>
+      </thead>
+
+    <tbody>
+  	{% for x, y in zipped %}
+		<tr>
+		      <th scope="row">{{x}}</th>
+		      <td>{{y.0}}</td>
+		      <td>{{y.1}}</td>
+		      <td>{{y.2}}</td>
+		      <td>{{y.3}}</td>
+		      <td>{{y.4}}</td>
+
+		    </tr>
+{% endfor %}
+  </tbody>
+</table>
+</div>
+
+
+
+	{% for x, y in zipped %}
+	{{x}}: {{y}}<br>
+	{% endfor %}
+
+
+
+<br>
+<div class="container-fluid">
+<center>
+<h5>Total papers marked</h5>
+	<em>Total papers marked: {{total_papers_count}}. Graded papers = {{total_graded_count}}. Voids = {{total_void_count}}. </em></center>
+</div>
+
+<br>
+
+<div class="container-fluid">
+<center>
+<h5>Marked by person</h5>
+{% for marker in marking_stats_by_person %}
+<em>Name: <strong>{{marker.name}}</strong>. Total papers marked: {{marker.person_total_papers_count}}. Graded papers = {{marker.person_total_graded_count}}. Voids = {{marker.person_total_void_count}}. </em>
+<br>
+{% endfor %}
+</center>
+</div>
+<br>
+<br>
+<br>
+<hr/>
+<center><h4>Check Marking</h4></center>
+<br>
+<div class="container-fluid">
+<center>
+<h5>Total checked-marked papers</h5>
+	<em>Total papers checked-marked: {{total_check_marked_count}}. Graded papers = {{total_graded_check_marked_count}}. Voids = {{total_check_marked_void_count}}. </em></center>
+</div>
+
+
+<div class="container-fluid">
+<center>
+<h5>Check-marked by person</h5>
+{% for marker in marking_stats_by_chief_markers %}
+<em>Name: <strong>{{marker.name}}</strong>. Total check-marked papers: {{marker.person_total_papers_count}}. Graded check-marked papers = {{marker.person_total_graded_count}}. Voids check-marked papers = {{marker.person_total_void_count}}. </em>
+<br>
+{% endfor %}
+</center>
+</div>
+<br>
+<br>
+{% endblock %}

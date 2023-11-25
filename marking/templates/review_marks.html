@@ -1,0 +1,90 @@
+{% extends 'base2.html' %}
+
+{% block content %}
+
+<br>
+		<!-- Successfully added item Message  -->
+		{% if messages %}
+			{% for message in messages %}
+				<div class="alert alert-primary alert-dismissible fade show" role="alert">
+				{{message}}
+				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				</div>
+			{% endfor %}
+		{% endif %}
+
+<center><h3>All grades for {{name_on_page.first_name}}</h3></center>
+
+
+
+{% if sort_by_date %}
+<center><h5>Sorted by <u>date</u></h5></center>
+<center><a class="btn btn-secondary" href="{% url 'review_marks' sort_type='s' the_marker=view_marker.id %}" role="button">Sort by school</a></center>
+<br>
+{% else %}
+<center><h5>Sorted by <u>school</u></h5></center>
+<center><a class="btn btn-secondary" href="{% url 'review_marks' sort_type='d' the_marker=view_marker.id %}" role="button">Sort by date</a></center>
+<br>
+
+{% endif %}
+
+{% if view_marker.chief_marker %}
+<br>
+<center><h5>Or go to ...</h5></center>
+<center><a class="btn btn-warning" href="{% url 'review_check_marks' %}" role="button">CHECK MARKING</a></center>
+<br>
+{% endif %}
+
+
+
+
+<center><em>Total papers marked: {{total_papers_count}}. Voids = {{total_void_count}}. Graded papers = {{total_graded_count}}</em></center>
+<br>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">School Number</th>
+      <th scope="col">Total</th>
+      <th scope="col">Q1</th>
+      <th scope="col">Q2</th>
+      <th scope="col">Q3</th>
+      <th scope="col">Date</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  
+
+
+  <tbody>
+  	{% for paper in all_papers %}
+		{% if paper.paper_void %}
+		    <tr>
+		      <th scope="row">{{paper.school}}</th>
+		      <td>VOID</td>
+		      <td></td>
+		      <td></td>
+		      <td></td>
+		      <td>{{paper.marking_created}}</td>
+		      <td><a class="btn btn-success" href="{% url 'edit_menu' paper_id=paper.pk %}" role="button">Edit/Delete</a></td>
+		    </tr>
+    	{% else %}
+		    <tr>
+		      <th scope="row">{{paper.school}}</th>
+		      <td>{{paper.total_score}}</td>
+		      <td>{{paper.q1_letter}} (<em>{{paper.q1a}}, {{paper.q1b}}, {{paper.q1c}}, {{paper.q1d}}</em>)</td>
+		      <td>{{paper.q2_letter}} (<em>{{paper.q2a}}, {{paper.q2b}}, {{paper.q2c}}, {{paper.q2d}}</em>)</td>
+		      <td>{{paper.q3_letter}} (<em>{{paper.q3a}}, {{paper.q3b}}, {{paper.q3c}}, {{paper.q3d}}</em>)</td>
+		      <td>{{paper.marking_created}}</td>
+		      <td><a class="btn btn-success" href="{% url 'edit_menu' paper_id=paper.pk %}" role="button">Edit/Delete</a></td>
+		    </tr>
+		    {% endif %}
+    {% endfor %}
+
+
+  
+  </tbody>
+</table>
+
+
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'base2.html' %}
+
+
+{% block content %}
+
+<center><h5>CHECK MARKING</h5></center>
+<br>
+<center><h5>Enter School Code</h5></center>
+<div class='container'>
+
+<form method="POST">
+	{% csrf_token %}
+  <div class="form-group container">
+    <label for="school_number1">Enter School Code eg 223</label>
+    <input type="number" class="form-control" id="school_number1" name="school_number">
+  </div>
+  <br>
+<div class="form-group container">
+<select class="form-select" name="check_marker">
+  <option selected>Who you checking?</option>
+  {% for marker in all_markers %}
+  <option value="{{marker.id}}">{{marker}}</option>
+{% endfor %}
+</select>
+</div>
+
+<br>
+<button type="submit" class="btn btn-success">Submit</button>
+
+</form>
+
+
+{% endblock %}
