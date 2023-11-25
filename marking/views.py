@@ -689,7 +689,7 @@ def statistics(request):
 		#Count the non_voids
 		total_graded_count = total_papers_count - total_void_count
 
-		#Count all thye check marked
+		#Count all the check marked
 		all_check_marked_papers = Paper.objects.filter(standard=the_standard).filter(paper_submitted=True).filter(check_marked=True)
 		total_check_marked_count = len(all_check_marked_papers)
 
@@ -870,7 +870,7 @@ def check_marking(request):
 		current_check_marker = Marker.objects.get(pk=current_check_marker_id)
 		#current_check_marker_name = current_check_marker.user__first_name
 		current_paper = Paper(user=user, school=current_school_number, 
-			check_marker=current_check_marker, check_marked=True)
+			check_marker=current_check_marker, check_marked=True, standard=the_standard)
 		current_paper.save()
 
 		return redirect('mark_current_question', current_question='1' )
