@@ -94,6 +94,8 @@ def mark_current_question(request, current_question):
 				f = Q1Form_AMME(request.POST, instance=current_paper)
 			elif what_standard.q1_type == 'AMEE':
 				f = Q1Form_AMEE(request.POST, instance=current_paper)
+			elif what_standard.q1_type == 'AMMEE':
+				f = Q1Form_AMMEE(request.POST, instance=current_paper)
 			elif what_standard.q1_type == 'AEME':
 				f = Q1Form_AEME(request.POST, instance=current_paper)
 			elif what_standard.q1_type == 'AEEM':
@@ -157,6 +159,8 @@ def mark_current_question(request, current_question):
 				form = Q1Form_AMME(instance=current_paper)
 			elif what_standard.q1_type == 'AMEE':
 				form = Q1Form_AMEE(instance=current_paper)
+			elif what_standard.q1_type == 'AMMEE':
+				form = Q1Form_AMMEE(instance=current_paper)
 			elif what_standard.q1_type == 'AEME':
 				form = Q1Form_AEME(instance=current_paper)
 			elif what_standard.q1_type == 'AEEM':
@@ -473,6 +477,8 @@ def edit_paper(request, paper_id, question_number):
 				#Grab the data from the form and save
 				if what_standard.q1_type == 'AMME':
 					f = Q1Form_AMME(request.POST, instance=editing_paper)
+				elif what_standard.q1_type == 'AMMEE':
+					f = Q1Form_AMMEE(request.POST, instance=editing_paper)
 				elif what_standard.q1_type == 'AMEE':
 					f = Q1Form_AMEE(request.POST, instance=editing_paper)
 				elif what_standard.q1_type == 'AEME':
@@ -557,6 +563,8 @@ def edit_paper(request, paper_id, question_number):
 
 				if what_standard.q1_type == 'AMME':
 					form = Q1Form_AMME(instance=editing_paper)
+				elif what_standard.q1_type == 'AMMEE':
+					form = Q1Form_AMMEE(instance=editing_paper)
 				elif what_standard.q1_type == 'AMEE':
 					form = Q1Form_AMEE(instance=editing_paper)
 				elif what_standard.q1_type == 'AEME':

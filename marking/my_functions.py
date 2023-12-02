@@ -1,5 +1,36 @@
+def old_calc_general_question(q1a, q1b, q1c, q1d):
+	conversion_dict = {'N':0, 'A': 1, 'M': 2, 'E': 3}
+	ncea_grade = ['N0', 'N1', 'N2', 'A3', 'A4', 'M5', 'M6', 'E7', 'E8']
+
+	grade_numbers = [conversion_dict[q1a], 
+	conversion_dict[q1b], 
+	conversion_dict[q1c], 
+	conversion_dict[q1d],
+	]
+
+	total_score = sum(grade_numbers)
+	if total_score ==7 and 3 not in grade_numbers: #Check if its an M6 as no Es
+		question_grade = 'M6'
+		total_score = 6
+	elif total_score ==8: #See if its an E7 or E8, by seeing if there are two E scores
+		for i, value in enumerate(grade_numbers[:-1]): 
+			if value == 3 and 3 in grade_numbers[i+1:]:
+				question_grade = 'E8'
+				break
+		else:
+			question_grade = 'E7'
+			total_score = 7
+	elif total_score > 8:
+		question_grade = 'E8'
+		total_score = 8
+	else:
+		question_grade = ncea_grade[total_score]
+	
+
+	return total_score, question_grade
+
 def calc_general_question(q1a, q1b, q1c, q1d):
-	conversion_dict = {'N':0, 'A': 1, 'M': 2, 'E': 3}
+	conversion_dict = {'N':0, 'A': 1, 'M': 2, 'E': 3, 'EE': 6}
 	ncea_grade = ['N0', 'N1', 'N2', 'A3', 'A4', 'M5', 'M6', 'E7', 'E8']
 
 	grade_numbers = [conversion_dict[q1a], 
@@ -9,56 +40,70 @@ def calc_general_question(q1a, q1b, q1c, q1d):
 	]
 
 	total_score = sum(grade_numbers)
-	if total_score ==7 and 3 not in grade_numbers: #Check if its an M6 as no Es
-		question_grade = 'M6'
-		total_score = 6
-	elif total_score ==8: #See if its an E7 or E8, by seeing if there are two E scores
-		for i, value in enumerate(grade_numbers[:-1]): 
-			if value == 3 and 3 in grade_numbers[i+1:]:
-				question_grade = 'E8'
-				break
+
+	if 6 in grade_numbers: #The got an EE grade
+		if total_score >= 8:
+			question_grade = 'E8'
+			total_score = 8
 		else:
-			question_grade = 'E7'
-			total_score = 7
-	elif total_score > 8:
-		question_grade = 'E8'
-		total_score = 8
-	else:
-		question_grade = ncea_grade[total_score]
+			question_grade = ncea_grade[total_score]
+
+	elif 3 in grade_numbers: #They got at least one E grade
+		no_of_Es = 0
+		for value in grade_numbers: #Find out how many Es
+			if value == 3:
+				no_of_Es += 1
+
+		if no_of_Es == 2: #They got 2 Es
+			if total_score >= 8:
+				question_grade = 'E8'
+				total_score = 8
+			else:
+				question_grade = ncea_grade[total_score]
+
+		else: #They got 1 E. 
+			if 2 in grade_numbers: #They got an E and an M
+				if total_score >= 6: #They got at least an E, M, A
+					question_grade = 'E7'
+					total_score = 7
+				else: #They only got an E, M
+					question_grade = ncea_grade[total_score]
+			elif total_score >= 4: #They got E, A, A or above
+				question_grade = 'A4'
+				total_score = 4
+			else:	#The got an E, but only either As, or Ns
+				question_grade = ncea_grade[total_score]
+
+	elif 2 in grade_numbers: #They got at least one M
+
+		no_of_Ms = 0
+		for value in grade_numbers: #Find out how many Ms
+			if value == 2:
+				no_of_Ms += 1
+
+		if no_of_Ms == 3: #They got 3 Ms
+			question_grade = 'M6'
+			total_score = 6
+
+		elif no_of_Ms == 2: #They got 2 Ms
+			question_grade = 'M5'
+			total_score = 5
+
+		elif no_of_Ms == 1: #They got 1M
+			if total_score >= 4: #They got at least M, A, A or M, A, A, A
+				question_grade = 'A4'
+				total_score = 4
+
+			else: #They got M, A, or they got M
+				question_grade = ncea_grade[total_score]
+
+	else: #They got a mix of As and Ns
+			question_grade = ncea_grade[total_score]
 	
 
-	return total_score, question_grade
+	return total_score, question_grade	
 
-def calc_q1(q1a, q1b, q1c, q1d):
-	conversion_dict = {'N':0, 'A': 1, 'M': 2, 'E': 3}
-	ncea_grade = ['N0', 'N1', 'N2', 'A3', 'A4', 'M5', 'M6', 'E7', 'E8']
 
-	grade_numbers = [conversion_dict[q1a], 
-	conversion_dict[q1b], 
-	conversion_dict[q1c], 
-	conversion_dict[q1d],
-	]
-
-	total_score = sum(grade_numbers)
-	if total_score ==7 and 3 not in grade_numbers: #Check if its an M6 as no Es
-		question_grade = 'M6'
-		total_score = 6
-	elif total_score ==8: #See if its an E7 or E8, by seeing if there are two E scores
-		for i, value in enumerate(grade_numbers[:-1]): 
-			if value == 3 and 3 in grade_numbers[i+1:]:
-				question_grade = 'E8'
-				break
-		else:
-			question_grade = 'E7'
-			total_score = 7
-	elif total_score > 8:
-		question_grade = 'E8'
-		total_score = 8
-	else:
-		question_grade = ncea_grade[total_score]
-	
-
-	return total_score, question_grade
 
 def calc_q2(q2a, q2b, q2c, q2d):
 	conversion_dict = {'N':0, 'A': 1, 'M': 2, 'E': 3}
@@ -111,7 +156,8 @@ def get_letter_grades(current_paper):
 	q1_total_score, q1_question_grade = calc_general_question(current_paper.q1a,
 		current_paper.q1b,
 		current_paper.q1c,
-		current_paper.q1d)
+		current_paper.q1d,
+		)
 
 	q2_total_score, q2_question_grade = calc_general_question(current_paper.q2a,
 		current_paper.q2b,
@@ -204,17 +250,19 @@ def count_all_grades(list_of_lists, question_type): #Counts all grades for stati
 			count_A = list_of_lists[i].count('A')
 			count_M = list_of_lists[i].count('M')
 			count_E = list_of_lists[i].count('E')
+			count_EE = list_of_lists[i].count('EE')
 
 			#totals
 
-			total_papers = count_N+count_A+count_M+count_E
+			total_papers = count_N+count_A+count_M+count_E+count_EE
 
-			average_q = (count_A + 2*count_M+3*count_E)/total_papers
+			average_q = (count_A + 2*count_M+3*count_E+count_EE*6)/total_papers
 
 			percentages = [round(count_N/total_papers*100), 
 			round(count_A/total_papers*100),
 			round(count_M/total_papers*100),
 			round(count_E/total_papers*100),
+			round(count_EE/total_papers*100),
 			round(average_q,1),
 			]
 

@@ -66,6 +66,30 @@ class Q1Form_AMEE(ModelForm):
 		model = Paper
 		fields = ('q1a', 'q1b', 'q1c', 'q1d')
 
+class Q1Form_AMMEE(ModelForm):
+	NA_choice = (
+    ('N','N'),
+    ('A', 'A'),)
+	NAM_choice = (
+    ('N','N'),
+    ('A', 'A'),
+    ('M', 'M'),)
+	NAMEE_choice = (
+    ('N','N'),
+    ('A', 'A'),
+    ('M', 'M'),
+    ('E', 'E'),
+    ('EE', 'EE'),
+    )
+	q1a = forms.ChoiceField(choices=NA_choice, widget=forms.RadioSelect)
+	q1b = forms.ChoiceField(choices=NAM_choice, widget=forms.RadioSelect)
+	q1c = forms.ChoiceField(choices=NAM_choice, widget=forms.RadioSelect)
+	q1d = forms.ChoiceField(choices=NAMEE_choice, widget=forms.RadioSelect)
+
+	class Meta:
+		model = Paper
+		fields = ('q1a', 'q1b', 'q1c', 'q1d')
+
 class Q1Form_AEME(ModelForm):
 	NA_choice = (
     ('N','N'),
