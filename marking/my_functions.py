@@ -50,7 +50,7 @@ def calc_general_question(q1a, q1b, q1c, q1d):
 
 	elif 3 in grade_numbers: #They got at least one E grade
 		no_of_Es = 0
-		for value in grade_numbers: #Find out how many Es
+		for value in grade_numbers: #Count number of Es
 			if value == 3:
 				no_of_Es += 1
 
@@ -68,16 +68,16 @@ def calc_general_question(q1a, q1b, q1c, q1d):
 					total_score = 7
 				else: #They only got an E, M
 					question_grade = ncea_grade[total_score]
-			elif total_score >= 4: #They got E, A, A or above
+			elif total_score >= 4: #They got E,A or E, A, A or E, A, A, A
 				question_grade = 'A4'
 				total_score = 4
-			else:	#The got an E, but only either As, or Ns
+			else:	#The got an E only
 				question_grade = ncea_grade[total_score]
 
 	elif 2 in grade_numbers: #They got at least one M
 
 		no_of_Ms = 0
-		for value in grade_numbers: #Find out how many Ms
+		for value in grade_numbers: #Count the Ms
 			if value == 2:
 				no_of_Ms += 1
 
@@ -104,6 +104,95 @@ def calc_general_question(q1a, q1b, q1c, q1d):
 	return total_score, question_grade	
 
 
+def calc_general_question_91171(q1a, q1b, q1c, q1d): #Calculate for Mechanics Paper. Need to tidy comments
+	conversion_dict = {'N':0, 'A': 1, 'M': 2, 'E': 3, 'EE': 6}
+	ncea_grade = ['N0', 'N1', 'N2', 'A3', 'A4', 'M5', 'M6', 'E7', 'E8']
+
+	grade_numbers = [conversion_dict[q1a], 
+	conversion_dict[q1b], 
+	conversion_dict[q1c], 
+	conversion_dict[q1d],
+	]
+
+	total_score = sum(grade_numbers)
+	no_of_Es = 0
+	no_of_Ms = 0
+	no_of_As = 0
+	for value in grade_numbers: #Count number of E's, M's, A's
+		if value == 3:
+			no_of_Es += 1
+		elif value == 2:
+			no_of_Ms += 1
+		elif value == 1:
+			no_of_As += 1
+
+	if 6 in grade_numbers: #The got an EE grade
+		if total_score > 8:
+			question_grade = 'E8'
+			total_score = 8 
+		elif total_score >= 7:
+			question_grade = 'E7'
+			total_score = 7 
+		else:
+			question_grade = ncea_grade[total_score]
+
+	elif 3 in grade_numbers: #They got at least one E grade
+
+		if no_of_Es == 2: #They got 2 Es
+			if total_score > 8:
+				question_grade = 'E8'
+				total_score = 8 
+			elif total_score >= 7:
+				question_grade = 'E7'
+				total_score = 7 
+			else:
+				question_grade = ncea_grade[total_score]
+
+		else: #They got 1 E. 
+			if 2 in grade_numbers: #They got an E and an M
+				if total_score >= 8: #They got at least an E, M, A
+					question_grade = 'E7'
+					total_score = 7
+				elif total_score >= 6:
+					question_grade = 'M6'
+					total_score = 6
+				else: #They only got an E, M
+					question_grade = ncea_grade[total_score]
+			elif total_score == 6: #They got E, A, A, A
+				question_grade = 'M5'
+				total_score = 5
+			elif total_score == 5: #They got E, A, A 
+				question_grade = 'A4'
+				total_score = 4
+			elif total_score == 4: #They got E, A, 
+				question_grade = 'A3'
+				total_score = 3
+			else:	#The got an E only
+				question_grade = ncea_grade[total_score]
+
+	elif 2 in grade_numbers: #They got at least one M
+
+		if no_of_Ms == 3: #They got 3 Ms
+			question_grade = 'M6'
+			total_score = 6
+
+		elif no_of_Ms == 2: #They got 2 Ms
+			question_grade = 'M5'
+			total_score = 5
+
+		elif no_of_Ms == 1: #They got 1M
+			if total_score >= 4: #They got at least M, A, A or M, A, A, A
+				question_grade = 'A4'
+				total_score = 4
+
+			else: #They got M, A, or they got M
+				question_grade = ncea_grade[total_score]
+
+	else: #They got a mix of As and Ns
+			question_grade = ncea_grade[total_score]
+	
+
+	return total_score, question_grade	
 
 def calc_q2(q2a, q2b, q2c, q2d):
 	conversion_dict = {'N':0, 'A': 1, 'M': 2, 'E': 3}
@@ -153,21 +242,40 @@ def calc_q3(q3a, q3b, q3c, q3d):
 
 
 def get_letter_grades(current_paper):
-	q1_total_score, q1_question_grade = calc_general_question(current_paper.q1a,
-		current_paper.q1b,
-		current_paper.q1c,
-		current_paper.q1d,
-		)
 
-	q2_total_score, q2_question_grade = calc_general_question(current_paper.q2a,
-		current_paper.q2b,
-		current_paper.q2c,
-		current_paper.q2d)
+	if current_paper.standard.standard_number == '91171':
+		q1_total_score, q1_question_grade = calc_general_question_91171(current_paper.q1a,
+			current_paper.q1b,
+			current_paper.q1c,
+			current_paper.q1d,
+			)
 
-	q3_total_score, q3_question_grade = calc_general_question(current_paper.q3a,
-		current_paper.q3b,
-		current_paper.q3c,
-		current_paper.q3d)
+		q2_total_score, q2_question_grade = calc_general_question_91171(current_paper.q2a,
+			current_paper.q2b,
+			current_paper.q2c,
+			current_paper.q2d)
+
+		q3_total_score, q3_question_grade = calc_general_question_91171(current_paper.q3a,
+			current_paper.q3b,
+			current_paper.q3c,
+			current_paper.q3d)
+
+	else:	
+		q1_total_score, q1_question_grade = calc_general_question(current_paper.q1a,
+			current_paper.q1b,
+			current_paper.q1c,
+			current_paper.q1d,
+			)
+
+		q2_total_score, q2_question_grade = calc_general_question(current_paper.q2a,
+			current_paper.q2b,
+			current_paper.q2c,
+			current_paper.q2d)
+
+		q3_total_score, q3_question_grade = calc_general_question(current_paper.q3a,
+			current_paper.q3b,
+			current_paper.q3c,
+			current_paper.q3d)
 
 	letter_grades = [q1_question_grade, q2_question_grade, q3_question_grade]
 	number_totals = [q1_total_score, q2_total_score, q3_total_score]
