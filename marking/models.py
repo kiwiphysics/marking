@@ -82,7 +82,39 @@ class Cutscore(models.Model): #Records the cutscores
 	standard = models.ForeignKey(Standard, related_name='cutscore_standard', default=1, on_delete=models.SET_DEFAULT)
 
 
+class Total(models.Model): #Works out how totals are totalled
+	grades_eemm = models.CharField(max_length=2, default='E8')
+	grades_eema = models.CharField(max_length=2, default='E8')
+	grades_eemn = models.CharField(max_length=2, default='E8')
+	grades_eeaa = models.CharField(max_length=2, default='E8')
+	grades_eean = models.CharField(max_length=2, default='E7')
+	grades_eenn = models.CharField(max_length=2, default='M6')
+	grades_emma = models.CharField(max_length=2, default='E7')
+	grades_emmn = models.CharField(max_length=2, default='E7')
+	grades_emaa = models.CharField(max_length=2, default='E7')
+	grades_eman = models.CharField(max_length=2, default='E7')
+	grades_emnn = models.CharField(max_length=2, default='M5')
+	grades_eaaa = models.CharField(max_length=2, default='A4')
+	grades_eaan = models.CharField(max_length=2, default='A4')
+	grades_eann = models.CharField(max_length=2, default='A4')
+	grades_ennn = models.CharField(max_length=2, default='A3')
+	grades_mmma = models.CharField(max_length=2, default='M6')
+	grades_mmmn = models.CharField(max_length=2, default='M6')
+	grades_mmaa = models.CharField(max_length=2, default='M5')
+	grades_mman = models.CharField(max_length=2, default='M5')
+	grades_mmnn = models.CharField(max_length=2, default='M5')
+	grades_maaa = models.CharField(max_length=2, default='A4')
+	grades_maan = models.CharField(max_length=2, default='A4')
+	grades_mann = models.CharField(max_length=2, default='A3')
+	grades_mnnn = models.CharField(max_length=2, default='N2')
+	grades_aaaa = models.CharField(max_length=2, default='A4')
+	grades_aaan = models.CharField(max_length=2, default='A3')
+	grades_aann = models.CharField(max_length=2, default='N2')
+	grades_annn = models.CharField(max_length=2, default='N1')
+	grades_nnnn = models.CharField(max_length=2, default='N0')
+	standard = models.ForeignKey(Standard, related_name='total_standard', default=1, on_delete=models.SET_DEFAULT)
 
-
+	def __str__(self):
+		return str('Mark scheme for ' + self.standard.standard_number + ': ' + self.standard.title + '. Level '+ str(self.standard.level))
 #Have standard as a model. Then can link to it in Marker, Paper, and Cutscore.
 

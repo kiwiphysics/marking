@@ -40,4 +40,6 @@ urlpatterns = [
     path('check_marking', marking_views.check_marking, name='check_marking'),
     path('review_check_marks', marking_views.review_check_marks, name='review_check_marks'),
     path('test_page', marking_views.test_page, name='test_page'),
+    path('set_marking_scheme', marking_views.set_marking_scheme, name='set_marking_scheme'),
+    path('print_mark_scheme', marking_views.print_mark_scheme, name='print_mark_scheme'),
 ]

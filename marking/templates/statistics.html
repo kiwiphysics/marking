@@ -84,8 +84,18 @@
 {% endfor %}
   </tbody>
 </table>
-</div>
 
+<center>
+<a class="btn btn-info" href="{% url 'set_marking_scheme' %}" role="button">Change how totals are calculated</a>
+<br>
+</center>
+</div>
+<br>
+<center>
+<a class="btn btn-success" href="{% url 'print_mark_scheme' %}" target="_blank" role="button">Printer friendly mark scheme</a>
+<br>
+</center>
+</div>
 	
 <br>
 <div class='container'>

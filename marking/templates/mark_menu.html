@@ -17,8 +17,14 @@
 {% if the_marker.chief_marker %}
 <br>
 <div class='container'>
-<a class="btn btn-primary" href="{% url 'super_review_menu' %}" role="button">Review ALL marks</a>
+<a class="btn btn-primary" href="{% url 'super_review_menu' %}" role="button">Review ANY marker</a>
 </div>
+
+<br>
+<div class='container'>
+<a class="btn btn-secondary" href="{% url 'statistics' %}" role="button">Statistics for ALL Papers</a>
+</div>
+
 {% endif %}
 
 

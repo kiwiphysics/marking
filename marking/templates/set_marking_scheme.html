@@ -1,0 +1,50 @@
+{% extends 'base2.html' %}
+
+{% block content %}
+
+<style type="text/css">
+  [id^='id_grade']{
+    display: flex;
+      margin-right: 25px;
+  }
+  </style>
+ <style type="text/css">
+th { height: 70px;}
+  </style>
+
+<center>
+<h3>Setting the mark scheme</h3><br>
+<div class='container'>
+<p>Use this page to test different mark schemes and how the distribution of marks looks.</p>
+</div>
+<br>
+
+</center>
+<center>
+<p><strong>Note: Change as needed, then hit 'Submit'. This will recalculate all grades in database. To undo you come back to this page and change the mark scheme back and submit again.</strong></p>
+</center>
+<br>
+
+<form method="POST">
+  {% csrf_token %}
+<center>
+    <table style="border: 1px solid; ">
+        {{ form.as_table }}
+    </table>
+<center>
+  <div>
+<br>
+    <button class="btn btn-secondary" type="submit">Submit</button>
+  
+<br><br>
+
+<a class="btn btn-success" href="{% url 'statistics' %}" role="button">Back</a>
+</div>
+</form>
+<br>
+
+
+
+{% endblock %}
+
+

@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Paper, User, Marker, Cutscore
+from .models import Paper, User, Marker, Cutscore, Total
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from .forms import *
@@ -231,10 +231,15 @@ def total_marks(request):
 	except:
 		return redirect('login_user')
 
+	#Pull out the paper, standard and the mark scheme (total)
 	current_paper = Paper.objects.filter(user=user).last()
+	the_standard = Marker.objects.get(user=user).standard
+	mark_scheme = Total.objects.get(standard=the_standard)
+
+
 
 	#Work out the letter grade eg A4 for each question, and write to database
-	letter_grades, number_totals = get_letter_grades(current_paper)
+	letter_grades, number_totals = get_letter_grades(current_paper, mark_scheme)
 
 	current_paper.save()
 
@@ -462,7 +467,8 @@ def edit_paper(request, paper_id, question_number):
 	
 	#Grab the paper to be editted
 	editing_paper = Paper.objects.get(pk=int(paper_id))
-
+	the_standard = Marker.objects.get(user=user).standard
+	mark_scheme = Total.objects.get(standard=the_standard)
 
 	#Check to see if you are allowed to access this paper
 	the_marker = Marker.objects.get(user=user)
@@ -491,7 +497,7 @@ def edit_paper(request, paper_id, question_number):
 				editing_paper = Paper.objects.get(pk=int(paper_id))
 				
 				#Work out the letter grade eg A4 for each question
-				letter_grades, number_totals = get_letter_grades(editing_paper)
+				letter_grades, number_totals = get_letter_grades(editing_paper, mark_scheme)
 
 				editing_paper.save()
 
@@ -518,7 +524,7 @@ def edit_paper(request, paper_id, question_number):
 				editing_paper = Paper.objects.get(pk=int(paper_id))
 				
 				#Work out the letter grade eg A4 for each question
-				letter_grades, number_totals = get_letter_grades(editing_paper)
+				letter_grades, number_totals = get_letter_grades(editing_paper, mark_scheme)
 
 				editing_paper.save()
 
@@ -545,7 +551,7 @@ def edit_paper(request, paper_id, question_number):
 				editing_paper = Paper.objects.get(pk=int(paper_id))
 				
 				#Work out the letter grade eg A4 for each question
-				letter_grades, number_totals = get_letter_grades(editing_paper)
+				letter_grades, number_totals = get_letter_grades(editing_paper, mark_scheme)
 
 				editing_paper.save()
 
@@ -887,6 +893,68 @@ def check_marking(request):
 		content = {'all_markers': all_markers}
 		return render(request, 'check_marking.html', content)
 
+def set_marking_scheme(request):
+		#Check the user is logged in
+	try:
+		user = User.objects.get(username=request.user.username)
+	except:
+		return redirect('login_user')
+
+	#Check they are a chief marker
+	the_marker = Marker.objects.get(user=user)
+
+	#Pull out the standard
+	the_standard = Marker.objects.get(user=user).standard
+
+	if the_marker.chief_marker==True:
+		if request.method=="POST": #User changes the mark scheme
+			current_totals = Total.objects.get(standard=the_standard)
+
+			f = TotalForm(request.POST, instance=current_totals)
+			f.save()
+
+			messages.success(request, ('Mark scheme updated'))
+
+			#Go through each paper and recalculate the totals
+			all_papers = Paper.objects.filter(standard=the_standard).filter(paper_submitted=True)
+			mark_scheme = Total.objects.get(standard=the_standard)
+			for i in range(len(all_papers)):
+				#Work out the letter grade eg A4 for each question, and write to database
+				letter_grades, number_totals = get_letter_grades(all_papers[i], mark_scheme)
+
+			updated_fields = ["q1_total", "q2_total", "q3_total", "q1_letter", "q2_letter", "q3_letter", "total_score"]
+			Paper.objects.bulk_update(all_papers, updated_fields)
+
+			return redirect('statistics')
+
+
+		else: # GET method. User has just opened page
+			
+			#Populate the form
+			current_totals = Total.objects.get(standard=the_standard)
+
+			form = TotalForm(instance=current_totals)
+
+			return render(request, 'set_marking_scheme.html', {'form':form,})
+
+	else: 
+		return redirect('mark_menu')
+
+def print_mark_scheme(request):
+		#Check the user is logged in
+	try:
+		user = User.objects.get(username=request.user.username)
+	except:
+		return redirect('login_user')
+
+	#Pull out the standard and mark scheme
+	the_standard = Marker.objects.get(user=user).standard
+	mark_scheme = Total.objects.get(standard=the_standard)
+
+	contents = {'mark_scheme': mark_scheme,
+					'standard': the_standard}
+
+	return render(request, 'print_mark_scheme.html', contents)
 '''To do
 
 

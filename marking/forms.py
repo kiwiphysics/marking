@@ -1,8 +1,65 @@
 from django import forms
 from django.forms import ModelForm
-from .models import Paper, Cutscore
+from .models import Paper, Cutscore, Total
 
 # Create the form class.
+
+class TotalForm(ModelForm):
+	total_choice = (
+		('E8', 'E8'),
+		('E7', 'E7'),
+		('M6', 'M6'),
+		('M5', 'M5'),
+		('A4', 'A4'),
+		('A3', 'A3'),
+		('N2', 'N2'),
+		('N1', 'N1'),
+		('N0', 'N0'),
+		)
+
+	grades_eemm = forms.ChoiceField(choices=total_choice, widget=forms.RadioSelect)
+	grades_eema = forms.ChoiceField(choices=total_choice, widget=forms.RadioSelect)
+	grades_eemn = forms.ChoiceField(choices=total_choice, widget=forms.RadioSelect)
+	grades_eeaa = forms.ChoiceField(choices=total_choice, widget=forms.RadioSelect)
+	grades_eean = forms.ChoiceField(choices=total_choice, widget=forms.RadioSelect)
+	grades_eenn = forms.ChoiceField(choices=total_choice, widget=forms.RadioSelect)
+	grades_emma = forms.ChoiceField(choices=total_choice, widget=forms.RadioSelect)
+	grades_emmn = forms.ChoiceField(choices=total_choice, widget=forms.RadioSelect)
+	grades_emaa = forms.ChoiceField(choices=total_choice, widget=forms.RadioSelect)
+	grades_eman = forms.ChoiceField(choices=total_choice, widget=forms.RadioSelect)
+	grades_emnn = forms.ChoiceField(choices=total_choice, widget=forms.RadioSelect)
+	grades_eaaa = forms.ChoiceField(choices=total_choice, widget=forms.RadioSelect)
+	grades_eaan = forms.ChoiceField(choices=total_choice, widget=forms.RadioSelect)
+	grades_eann = forms.ChoiceField(choices=total_choice, widget=forms.RadioSelect)
+	grades_ennn = forms.ChoiceField(choices=total_choice, widget=forms.RadioSelect)
+	grades_mmma = forms.ChoiceField(choices=total_choice, widget=forms.RadioSelect)
+	grades_mmmn = forms.ChoiceField(choices=total_choice, widget=forms.RadioSelect)
+	grades_mmaa = forms.ChoiceField(choices=total_choice, widget=forms.RadioSelect)
+	grades_mman = forms.ChoiceField(choices=total_choice, widget=forms.RadioSelect)
+	grades_mmnn = forms.ChoiceField(choices=total_choice, widget=forms.RadioSelect)
+	grades_maaa = forms.ChoiceField(choices=total_choice, widget=forms.RadioSelect)
+	grades_maan = forms.ChoiceField(choices=total_choice, widget=forms.RadioSelect)
+	grades_mann = forms.ChoiceField(choices=total_choice, widget=forms.RadioSelect)
+	grades_mnnn = forms.ChoiceField(choices=total_choice, widget=forms.RadioSelect)
+	grades_aaaa = forms.ChoiceField(choices=total_choice, widget=forms.RadioSelect)
+	grades_aaan = forms.ChoiceField(choices=total_choice, widget=forms.RadioSelect)
+	grades_aann = forms.ChoiceField(choices=total_choice, widget=forms.RadioSelect)
+	grades_annn = forms.ChoiceField(choices=total_choice, widget=forms.RadioSelect)
+	grades_nnnn = forms.ChoiceField(choices=total_choice, widget=forms.RadioSelect)
+
+	class Meta:
+		model = Total
+		fields = ('grades_eemm', 'grades_eema', 'grades_eemn', 'grades_eeaa',
+			 'grades_eean' , 'grades_eenn' , 'grades_emma' , 'grades_emmn',
+			 'grades_emaa', 'grades_eman', 'grades_emnn', 'grades_eaaa',
+			 'grades_eaan', 'grades_eann', 'grades_ennn',
+			 'grades_mmma', 'grades_mmmn', 'grades_mmaa', 'grades_mman',
+			 'grades_mmnn', 'grades_maaa', 'grades_maan', 'grades_mann',
+			 'grades_mnnn',
+			 'grades_aaaa', 'grades_aaan', 'grades_aann', 'grades_annn',
+			 'grades_nnnn',
+			 )
+
 class Q1Form(ModelForm):
 	NA_choice = (
     ('N','N'),
