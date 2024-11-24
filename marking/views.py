@@ -121,6 +121,8 @@ def mark_current_question(request, current_question):
 				f = Q2Form_AEME(request.POST, instance=current_paper)
 			elif what_standard.q2_type == 'AEEM':
 				f = Q2Form_AEEM(request.POST, instance=current_paper)
+			elif what_standard.q2_type == 'MEEE':
+				f = Q2Form_MEEE(request.POST, instance=current_paper)			
 			f.save()
 
 			#Get ready to go to next question
@@ -190,6 +192,8 @@ def mark_current_question(request, current_question):
 				form = Q2Form_AEME(instance=current_paper)
 			elif what_standard.q2_type == 'AEEM':
 				form = Q2Form_AEEM(instance=current_paper)
+			elif what_standard.q2_type == 'MEEE':
+				form = Q2Form_MEEE(instance=current_paper)
 			
 			content = {
 			'form':form,

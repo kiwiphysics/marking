@@ -294,6 +294,27 @@ class Q2Form_AEEM(ModelForm):
 		model = Paper
 		fields = ('q2a', 'q2b', 'q2c', 'q2d')
 
+class Q2Form_MEEE(ModelForm): #Added this question for 2024
+	NA_choice = (
+    ('N','N'),
+    ('A', 'A'),)
+	NAM_choice = (
+    ('N','N'),
+    ('A', 'A'),
+    ('M', 'M'),)
+	NAME_choice = (
+    ('N','N'),
+    ('A', 'A'),
+    ('M', 'M'),
+    ('E', 'E'),)
+	q2a = forms.ChoiceField(choices=NAM_choice, widget=forms.RadioSelect)
+	q2b = forms.ChoiceField(choices=NAME_choice, widget=forms.RadioSelect)
+	q2c = forms.ChoiceField(choices=NAME_choice, widget=forms.RadioSelect)
+	q2d = forms.ChoiceField(choices=NAME_choice, widget=forms.RadioSelect)
+	class Meta:
+		model = Paper
+		fields = ('q2a', 'q2b', 'q2c', 'q2d')
+
 class Q3Form(ModelForm):
 	NA_choice = (
     ('N','N'),
