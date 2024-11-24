@@ -84,6 +84,9 @@ class Cutscore(models.Model): #Records the cutscores
 
 
 class Total(models.Model): #Works out how totals are totalled
+	grades_eeem = models.CharField(max_length=2, default='E8')
+	grades_eeea = models.CharField(max_length=2, default='E8')
+	grades_eeen = models.CharField(max_length=2, default='E8')
 	grades_eemm = models.CharField(max_length=2, default='E8')
 	grades_eema = models.CharField(max_length=2, default='E8')
 	grades_eemn = models.CharField(max_length=2, default='E8')
@@ -99,6 +102,7 @@ class Total(models.Model): #Works out how totals are totalled
 	grades_eaan = models.CharField(max_length=2, default='A4')
 	grades_eann = models.CharField(max_length=2, default='A4')
 	grades_ennn = models.CharField(max_length=2, default='A3')
+	grades_mmmm = models.CharField(max_length=2, default='M6')
 	grades_mmma = models.CharField(max_length=2, default='M6')
 	grades_mmmn = models.CharField(max_length=2, default='M6')
 	grades_mmaa = models.CharField(max_length=2, default='M5')

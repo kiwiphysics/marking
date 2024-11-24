@@ -39,8 +39,13 @@ def calc_general_question(q1a, q1b, q1c, q1d, mark_scheme):
 			no_of_As += 1
 
 	#Now match the scores to the grade from the mark scheme.
-	if no_of_Es > 2:
-		question_grade = mark_scheme.grades_eemm #They got EEEM, EEEA, EEEN Might need to change
+	if no_of_Es > 2: #They got EEEM, EEEA, EEEN
+		if no_of_Ms == 1: 
+			question_grade = mark_scheme.grades_eeem 
+		elif no_of_As == 1:
+			question_grade = mark_scheme.grades_eeea
+		else:
+			question_grade = mark_scheme.grades_eeen
 
 
 	elif no_of_Es == 2:  #They got 2 Es
@@ -85,8 +90,8 @@ def calc_general_question(q1a, q1b, q1c, q1d, mark_scheme):
 			question_grade = mark_scheme.grades_ennn
 
 	elif no_of_Ms >=1:
-		if no_of_Ms > 3:
-			question_grade = mark_scheme.grades_mmma  #Might need to change
+		if no_of_Ms == 4:
+			question_grade = mark_scheme.grades_mmmm  
 		elif no_of_Ms == 3:
 			if no_of_As==1:
 				question_grade = mark_scheme.grades_mmma
