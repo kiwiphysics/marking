@@ -143,6 +143,8 @@ def mark_current_question(request, current_question):
 				f = Q3Form_AEME(request.POST, instance=current_paper)
 			elif what_standard.q3_type == 'AEEM':
 				f = Q3Form_AEEM(request.POST, instance=current_paper)
+			elif what_standard.q3_type == 'AAEE':
+				f = Q3Form_AAEE(request.POST, instance=current_paper)
 			f.save()
 
 			#Go to totals page				
@@ -217,6 +219,8 @@ def mark_current_question(request, current_question):
 				form = Q3Form_AEME(instance=current_paper)
 			elif what_standard.q3_type == 'AEEM':
 				form = Q3Form_AEEM(instance=current_paper)
+			elif what_standard.q3_type == 'AAEE':
+				form = Q3Form_AAEE(instance=current_paper)
 
 			content = {
 			'form':form,
@@ -550,6 +554,8 @@ def edit_paper(request, paper_id, question_number):
 					f = Q3Form_AEME(request.POST, instance=editing_paper)
 				elif what_standard.q3_type == 'AEEM':
 					f = Q3Form_AEEM(request.POST, instance=editing_paper)
+				elif what_standard.q3_type == 'AAEE':
+					f = Q3Form_AAEE(request.POST, instance=editing_paper)
 				f.save()
 				f.save()
 
@@ -622,6 +628,8 @@ def edit_paper(request, paper_id, question_number):
 					form = Q3Form_AEME(instance=editing_paper)
 				elif what_standard.q3_type == 'AEEM':
 					form = Q3Form_AEEM(instance=editing_paper)
+				elif what_standard.q3_type == 'AAEE':
+					form = Q3Form_AAEE(instance=editing_paper)
 
 				content = {
 				'form':form,

@@ -426,6 +426,27 @@ class Q3Form_AEEM(ModelForm):
 		model = Paper
 		fields = ('q3a', 'q3b', 'q3c', 'q3d')
 
+class Q3Form_AAEE(ModelForm):
+	NA_choice = (
+    ('N','N'),
+    ('A', 'A'),)
+	NAM_choice = (
+    ('N','N'),
+    ('A', 'A'),
+    ('M', 'M'),)
+	NAME_choice = (
+    ('N','N'),
+    ('A', 'A'),
+    ('M', 'M'),
+    ('E', 'E'),)
+	q3a = forms.ChoiceField(choices=NA_choice, widget=forms.RadioSelect)
+	q3b = forms.ChoiceField(choices=NA_choice, widget=forms.RadioSelect)
+	q3c = forms.ChoiceField(choices=NAME_choice, widget=forms.RadioSelect)
+	q3d = forms.ChoiceField(choices=NAME_choice, widget=forms.RadioSelect)
+	class Meta:
+		model = Paper
+		fields = ('q3a', 'q3b', 'q3c', 'q3d')
+
 		
 class CutscoreForm(ModelForm):
 	achieved = forms.IntegerField(min_value=3, max_value=10)

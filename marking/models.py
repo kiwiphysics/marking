@@ -13,7 +13,8 @@ class Standard(models.Model): #Info about the standard
 		('AEME', 'AEME'),
 		('AEEM', 'AEEM'),
 		('AMMEE', 'AMMEE'),
-		('MEEE', 'MEEE')
+		('MEEE', 'MEEE'),
+		('AAEE', 'AAEE'),
 		)
 	q1_type = models.CharField(max_length=5, choices = CHOICES, default='AMME')
 	q2_type = models.CharField(max_length=5, choices = CHOICES, default='AMME')
