@@ -93,6 +93,7 @@ class Total(models.Model): #Works out how totals are totalled
 	grades_eeaa = models.CharField(max_length=2, default='E8')
 	grades_eean = models.CharField(max_length=2, default='E7')
 	grades_eenn = models.CharField(max_length=2, default='M6')
+	grades_emmm = models.CharField(max_length=2, default='E7')
 	grades_emma = models.CharField(max_length=2, default='E7')
 	grades_emmn = models.CharField(max_length=2, default='E7')
 	grades_emaa = models.CharField(max_length=2, default='E7')

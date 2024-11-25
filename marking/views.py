@@ -522,6 +522,8 @@ def edit_paper(request, paper_id, question_number):
 					f = Q2Form_AEME(request.POST, instance=editing_paper)
 				elif what_standard.q2_type == 'AEEM':
 					f = Q2Form_AEEM(request.POST, instance=editing_paper)
+				elif what_standard.q2_type == 'MEEE':
+					f = Q2Form_MEEE(request.POST, instance=editing_paper)
 				f.save()
 
 				#Grab the paper from database again, so you can update the totals
@@ -600,6 +602,8 @@ def edit_paper(request, paper_id, question_number):
 					form = Q2Form_AEME(instance=editing_paper)
 				elif what_standard.q2_type == 'AEEM':
 					form = Q2Form_AEEM(instance=editing_paper)
+				elif what_standard.q2_type == 'MEEE':
+					form = Q2Form_MEEE(instance=editing_paper)
 
 				content = {
 				'form':form,

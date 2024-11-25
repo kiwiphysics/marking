@@ -26,6 +26,7 @@ class TotalForm(ModelForm):
 	grades_eeaa = forms.ChoiceField(choices=total_choice, widget=forms.RadioSelect)
 	grades_eean = forms.ChoiceField(choices=total_choice, widget=forms.RadioSelect)
 	grades_eenn = forms.ChoiceField(choices=total_choice, widget=forms.RadioSelect)
+	grades_emmm = forms.ChoiceField(choices=total_choice, widget=forms.RadioSelect)
 	grades_emma = forms.ChoiceField(choices=total_choice, widget=forms.RadioSelect)
 	grades_emmn = forms.ChoiceField(choices=total_choice, widget=forms.RadioSelect)
 	grades_emaa = forms.ChoiceField(choices=total_choice, widget=forms.RadioSelect)
@@ -55,7 +56,7 @@ class TotalForm(ModelForm):
 		model = Total
 		fields = ('grades_eeem','grades_eeea', 'grades_eeen', 
 			'grades_eemm', 'grades_eema', 'grades_eemn', 'grades_eeaa',
-			 'grades_eean' , 'grades_eenn' , 'grades_emma' , 'grades_emmn',
+			 'grades_eean' , 'grades_eenn' , 'grades_emmm' ,'grades_emma' , 'grades_emmn',
 			 'grades_emaa', 'grades_eman', 'grades_emnn', 'grades_eaaa',
 			 'grades_eaan', 'grades_eann', 'grades_ennn',
 			 'grades_mmmm', 'grades_mmma', 'grades_mmmn', 'grades_mmaa', 'grades_mman',

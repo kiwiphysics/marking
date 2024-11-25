@@ -68,7 +68,9 @@ def calc_general_question(q1a, q1b, q1c, q1d, mark_scheme):
 			question_grade = mark_scheme.grades_eenn
 
 	elif no_of_Es == 1: #They got 1 E
-		if no_of_Ms == 2:
+		if no_of_Ms == 3:
+			question_grade = mark_scheme.grades_emmm #emmm
+		elif no_of_Ms == 2:
 			if no_of_As == 1: #EMMA
 				question_grade = mark_scheme.grades_emma
 			else: #emmn
