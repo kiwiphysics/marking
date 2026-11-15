@@ -703,6 +703,10 @@ def statistics(request):
 	#Pull out the standard
 	the_standard = Marker.objects.get(user=user).standard
 
+	#Check if there are any papers. If none, take them to alternate page
+	if len(Paper.objects.filter(standard=the_standard).filter(paper_submitted=True).filter(check_marked=False))==0:
+		return render(request, 'no_papers_stats.html')	
+
 	if the_marker.chief_marker==True:
 		
 		all_markers = Marker.objects.filter(standard=the_standard).order_by('user__first_name')
@@ -971,6 +975,49 @@ def print_mark_scheme(request):
 					'standard': the_standard}
 
 	return render(request, 'print_mark_scheme.html', contents)
+
+
+def confirm_full_delete(request):
+			#Check the user is logged in
+	try:
+		user = User.objects.get(username=request.user.username)
+	except:
+		return redirect('login_user')
+
+	#Check they are a chief marker
+	the_marker = Marker.objects.get(user=user)
+
+	#Pull out the standard
+	the_standard = Marker.objects.get(user=user).standard
+
+	if the_marker.chief_marker==True:
+	
+		if request.method=="POST": #User confirms the delete
+			if request.POST['confirm_delete_text'] =='delete':
+
+				#Delete the papers
+				deleted_count, _ = Paper.objects.filter(standard=the_standard).delete()
+				messages.success(request, f"Deleted {deleted_count} papers.")
+
+				return render(request, 'no_papers_stats.html')
+			else: #They didnt type in correctly
+				messages.error(request, "You must type 'delete' to confirm.")
+				return redirect('statistics')
+
+
+		else: # GET method. User has just opened the confirm_delete page
+			
+			#Populate the form
+			contents = {'standard': the_standard}
+
+			
+
+			return render(request, 'confirm_full_delete.html', contents)
+
+	else:
+		return redirect('mark_menu')
+
+
 '''To do
 
 
