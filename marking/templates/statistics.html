@@ -95,7 +95,13 @@
 <a class="btn btn-success" href="{% url 'print_mark_scheme' %}" target="_blank" role="button">Printer friendly mark scheme</a>
 <br>
 </center>
-</div>
+
+<br>
+<center>
+<a class="btn btn-danger" href="{% url 'confirm_full_delete' %}" role="button">Delete ALL papers in this standard</a>
+<br>
+</center>
+<br>
 	
 <br>
 <div class='container'>
@@ -180,4 +186,8 @@
 </div>
 <br>
 <br>
+
+
+
+
 {% endblock %}

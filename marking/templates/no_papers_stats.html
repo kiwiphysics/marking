@@ -1,0 +1,24 @@
+{% extends 'base2.html' %}
+
+
+
+{% block content %}
+		<!-- Successfully added item Message  -->
+		{% if messages %}
+			{% for message in messages %}
+				<div class="alert alert-primary alert-dismissible fade show" role="alert">
+				{{message}}
+				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				</div>
+			{% endfor %}
+		{% endif %}
+<br>
+
+
+<center><h3>There are no papers for this standard...</h3></center>
+
+<br>
+
+<br><center>
+<a class="btn btn-secondary" href="{% url 'mark_menu' %}" role="button">Home</a></center>
+{% endblock %}

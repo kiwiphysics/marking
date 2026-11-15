@@ -1,0 +1,28 @@
+{% extends 'base2.html' %}
+
+{% block title %}<title>Confirm Delete?</title>{% endblock %}
+
+{% block content %}
+	<center><h5>You are attempting to delete ALL papers for standard <strong>{{standard}}</strong> in database</h5></center>
+<br>
+	<center><p>This CANNOT be undone!!!</p></center>
+<br>
+	<center><p>Type 'delete' into box below to confirm delete</p></center>
+	<div class="row">
+    <div class="col-md-6 offset-md-3">
+
+				<form method="POST" >
+					{% csrf_token %}
+			  <div class="mb-3">
+			   
+			    <input type="text" class="form-control"  name="confirm_delete_text">
+			    
+			  </div>
+		
+			  <center>
+			  <button type="submit" class="btn btn-danger">Confirm Delete</button> </center>
+			</form>
+</div>
+  </div>
+
+{% endblock %}
