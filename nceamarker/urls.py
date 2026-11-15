@@ -42,4 +42,5 @@ urlpatterns = [
     path('test_page', marking_views.test_page, name='test_page'),
     path('set_marking_scheme', marking_views.set_marking_scheme, name='set_marking_scheme'),
     path('print_mark_scheme', marking_views.print_mark_scheme, name='print_mark_scheme'),
+    path('confirm_full_delete', marking_views.confirm_full_delete, name='confirm_full_delete'),
 ]
